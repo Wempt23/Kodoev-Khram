@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Ordered Lists — Sample</title>
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 20px; line-height: 1.5; }
+        section { margin-bottom: 28px; }
+        ol.custom { padding-left: 1.2em; background: #f8f9fb; border: 1px solid #e3e6ea; border-radius: 6px; padding: 12px; }
+        li { margin: 6px 0; }
+        .controls { margin-top: 8px; }
+        button { margin-right: 6px; }
+        .highlight { background: #fff7cc; }
+    </style>
+</head>
+<body>
+    <h1>Ordered Lists (ol) — Examples</h1>
+
+    <section>
+        <h2>1. Simple ordered list</h2>
+        <ol class="custom">
+            <li>First item</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>2. Start and reversed</h2>
+        <p>Start at 5 and reversed:</p>
+        <ol start="5" reversed class="custom">
+            <li>Item A</li>
+            <li>Item B</li>
+            <li>Item C</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>3. Nested ordered lists (multi-level)</h2>
+        <ol class="custom">
+            <li>Step 1
+                <ol>
+                    <li>Substep 1.1</li>
+                    <li>Substep 1.2</li>
+                </ol>
+            </li>
+            <li>Step 2
+                <ol>
+                    <li>Substep 2.1</li>
+                    <li>Substep 2.2</li>
+                </ol>
+            </li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>4. Dynamic list with ordering controls</h2>
+        <p>Select an item and use controls to move or sort items.</p>
+        <ol id="dynamicList" class="custom">
+            <li tabindex="0">Bananas</li>
+            <li tabindex="0">Apples</li>
+            <li tabindex="0">Oranges</li>
+            <li tabindex="0">Grapes</li>
+        </ol>
+        <div class="controls">
+            <button id="moveUp">Move Up</button>
+            <button id="moveDown">Move Down</button>
+            <button id="sortAsc">Sort A→Z</button>
+            <button id="sortDesc">Sort Z→A</button>
+            <button id="reverse">Reverse Order</button>
+        </div>
+    </section>
+
+    <script>
+        // Basic selection and ordering helpers for the demo list
+        const list = document.getElementById('dynamicList');
+
+        // Click to select; use keyboard focus as well
+        list.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') { selectItem(e.target); }
+        });
+        list.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.tagName === 'LI') selectItem(e.target);
+        });
+
+        function selectItem(li) {
+            clearSelection();
+            li.classList.add('highlight');
+            li.focus();
+        }
+        function clearSelection() {
+            list.querySelectorAll('li').forEach(i => i.classList.remove('highlight'));
+        }
+        function getSelected() {
+            return list.querySelector('li.highlight');
+        }
+
+        document.getElementById('moveUp').addEventListener('click', () => {
+            const sel = getSelected(); if (!sel) return;
+            const prev = sel.previousElementSibling;
+            if (prev) list.insertBefore(sel, prev);
+        });
+
+        document.getElementById('moveDown').addEventListener('click', () => {
+            const sel = getSelected(); if (!sel) return;
+            const next = sel.nextElementSibling;
+            if (next) list.insertBefore(next, sel);
+        });
+
+        document.getElementById('sortAsc').addEventListener('click', () => {
+            sortList(true);
+        });
+        document.getElementById('sortDesc').addEventListener('click', () => {
+            sortList(false);
+        });
+        document.getElementById('reverse').addEventListener('click', () => {
+            const items = Array.from(list.children).reverse();
+            items.forEach(i => list.appendChild(i));
+        });
+
+        function sortList(asc = true) {
+            const items = Array.from(list.children);
+            items.sort((a,b) => {
+                const tA = a.textContent.trim().toLowerCase();
+                const tB = b.textContent.trim().toLowerCase();
+                return asc ? tA.localeCompare(tB) : tB.localeCompare(tA);
+            });
+            items.forEach(i => list.appendChild(i));
+        }
+
+        // Make list items focusable to support keyboard selection
+        list.querySelectorAll('li').forEach(li => li.setAttribute('tabindex', '0'));
+    </script>
+</body>
+</html>

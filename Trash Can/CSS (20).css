@@ -1,0 +1,15 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    color: aqua;
+}
+
+h2 {
+    color: chocolate; background-color: aliceblue; max-width: 250px;
+}
+
+h3 {
+    background-color: aliceblue; max-width: 250px;
+}

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>42 — The Greatest Number of All Time</title>
+    <style>
+        :root{
+            --bg:#0b1020;
+            --card:#0f1724;
+            --accent:#ffd54a;
+            --muted:#9aa4b2;
+            --glass: rgba(255,255,255,0.03);
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,Segoe UI,system-ui,Roboto,Helvetica,Arial,sans-serif;
+            background:
+                radial-gradient(1000px 600px at 10% 10%, rgba(255,213,74,0.06), transparent 10%),
+                linear-gradient(180deg,#071028 0%, #081224 50%, var(--bg) 100%);
+            color:#e6eef8;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:clamp(18px,4vw,36px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:min(1100px,96%);
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:16px;
+            padding:28px;
+            box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+            display:grid;
+            grid-template-columns: 380px 1fr;
+            gap:20px;
+            align-items:start;
+        }
+
+        .hero{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), var(--glass));
+            border-radius:12px;
+            padding:20px;
+            text-align:center;
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+            align-items:center;
+        }
+
+        .big{
+            font-weight:800;
+            font-size:clamp(56px,12vw,120px);
+            line-height:0.9;
+            color:var(--accent);
+            text-shadow: 0 6px 30px rgba(0,0,0,0.6), 0 0 30px rgba(255,213,74,0.06);
+            transition: transform .6s cubic-bezier(.2,.9,.3,1), filter .3s;
+            width:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            user-select:text;
+        }
+
+        .big:hover{ transform: rotate(-6deg) scale(1.02) }
+
+        h1{
+            margin:0;
+            font-size:18px;
+            color:#ffffffcc;
+            font-weight:600;
+            letter-spacing:0.4px;
+        }
+        .subtitle{ color:var(--muted); font-size:13px }
+
+        .card{
+            background:var(--card);
+            border-radius:12px;
+            padding:18px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+            color:#cfe6ff;
+        }
+
+        .facts{ display:flex; flex-direction:column; gap:10px; margin-top:6px }
+        .fact{ display:flex; gap:12px; align-items:flex-start }
+        .tag{
+            background:rgba(255,255,255,0.035);
+            padding:6px 10px;
+            border-radius:8px;
+            font-weight:700;
+            color:var(--accent);
+            min-width:46px;
+            text-align:center;
+            font-size:13px;
+        }
+        .fact p{ margin:0; font-size:14px; color:#dbefff }
+        .muted{ color:var(--muted); font-size:13px }
+
+        .right{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+
+        ul.props{ margin:0; padding:12px 18px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; list-style:none }
+        ul.props li{
+            background:var(--glass);
+            padding:10px 12px;
+            border-radius:10px;
+            font-weight:600;
+            color:#fff;
+            font-size:13px;
+        }
+
+        .actions{ display:flex; gap:10px; margin-top:6px }
+        button{
+            background:transparent;
+            border:1px solid rgba(255,255,255,0.06);
+            color:var(--accent);
+            padding:8px 12px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:700;
+            letter-spacing:0.4px;
+        }
+        button.secondary{ color:#cfe6ff; border-color:rgba(255,255,255,0.03) }
+        button:active{ transform:translateY(1px) }
+
+        pre.ascii{
+            margin:0;
+            padding:14px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:10px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+            font-size:12px;
+            color:#dbefff;
+            overflow:auto;
+            max-height:220px;
+        }
+
+        footer{ margin-top:12px; color:var(--muted); font-size:12px; text-align:right }
+
+        @media (max-width:880px){
+            .container{ grid-template-columns:1fr; }
+            .big{ font-size:72px }
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main">
+        <section class="hero" aria-labelledby="title">
+            <h1 id="title">Greatest Number Of All Time</h1>
+            <div class="big" id="bigNumber" aria-live="polite">42</div>
+            <div class="subtitle">A small toolkit showing why 42 is special — math, bases, and trivia.</div>
+
+            <div class="card" style="width:100%; margin-top:8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div class="muted">Quick facts</div>
+                        <div style="font-weight:700; font-size:15px; margin-top:6px">Simple, elegant, universal</div>
+                    </div>
+                    <div class="actions" role="toolbar">
+                        <button id="spin">Spin</button>
+                        <button id="shuffle" class="secondary">Shuffle</button>
+                    </div>
+                </div>
+
+                <div class="facts" style="margin-top:12px;">
+                    <div class="fact"><div class="tag">DEC</div><p>42 in decimal — the usual representation.</p></div>
+                    <div class="fact"><div class="tag">BIN</div><p>Binary: <strong>101010</strong> — a neat repeating pattern.</p></div>
+                    <div class="fact"><div class="tag">HEX</div><p>Hexadecimal: <strong>2A</strong>.</p></div>
+                    <div class="fact"><div class="tag">PRIME?</div><p>Not prime — composite: 42 = 2 × 3 × 7.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="right">
+            <div class="card" aria-labelledby="mathTitle">
+                <h2 id="mathTitle" style="margin:0 0 10px 0">Mathematical properties</h2>
+                <ul class="props" aria-hidden="false">
+                    <li>Even</li>
+                    <li>Sphenic number</li>
+                    <li>Abundant in many puzzles</li>
+                    <li>Triangular-ish patterns</li>
+                </ul>
+
+                <div style="margin-top:12px">
+                    <div class="muted">ASCII art</div>
+                    <pre class="ascii" id="ascii" aria-hidden="false">
+    ____  _  _ 
+ |___ \| || |
+     __) | || |_
+    / __/|__   _|
+ |_____|  |_|   4 2
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin:0 0 8px 0">Trivia & culture</h3>
+                <p class="muted" style="margin:0 0 10px 0">Often referenced as "the answer to life, the universe, and everything" in modern geek culture. It appears in math, programming, and Easter eggs.</p>
+
+                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+                    <button id="toggleFacts" class="secondary">Toggle Trivia</button>
+                    <button id="randomize" >Randomize Color</button>
+                </div>
+
+                <div id="extra" style="margin-top:12px; display:none; font-size:14px; color:#dbefff">
+                    <ul style="margin:0 0 0 18px; padding:0; color:#dbefff">
+                        <li>Binary palindrome: 101010 (reads with a pattern)</li>
+                        <li>Product of three distinct primes: 2 · 3 · 7</li>
+                        <li>Used as a playful default in many programs and docs</li>
+                    </ul>
+                </div>
+
+                <footer>Made with a fondness for numbers.</footer>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        // Small interactivity: spin, shuffle, toggle trivia, randomize accent color
+        const big = document.getElementById('bigNumber');
+        const ascii = document.getElementById('ascii');
+        const extra = document.getElementById('extra');
+        const root = document.documentElement;
+
+        document.getElementById('spin').addEventListener('click', ()=> {
+            big.animate([
+                { transform: 'rotate(0) scale(1)' },
+                { transform: 'rotate(360deg) scale(1.05)' }
+            ], { duration: 900, easing: 'cubic-bezier(.2,.9,.3,1)' });
+        });
+
+        document.getElementById('shuffle').addEventListener('click', ()=>{
+            // playful shuffle: cycle through related numbers then back to 42
+            const seq = ['7','13','21','42','84','168','42'];
+            let i = 0;
+            const t = setInterval(()=> {
+                big.textContent = seq[i++];
+                if (i>=seq.length) clearInterval(t);
+            }, 120);
+        });
+
+        document.getElementById('toggleFacts').addEventListener('click', ()=>{
+            extra.style.display = extra.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('randomize').addEventListener('click', ()=>{
+            // pick a warm color for the accent
+            const hues = [30,40,45,50,20];
+            const hue = hues[Math.floor(Math.random()*hues.length)];
+            const accent = `hsl(${hue} 95% 62%)`;
+            root.style.setProperty('--accent', accent);
+        });
+
+        // small ASCII substitution to keep it fresh
+        const arts = [
+`   __  _  _   ___ 
+    / _|| || | / _ \\
+ | |_ | || || (_) |
+    \\__||_|\\_| \\___/   42`,
+`  ____   __    ___ 
+ |___ \\ / _|  / _ \\
+     __) | |_  | (_) |
+    |____/|_(_)  \\___/  42`,
+`  _  _   ___   ____
+ | || | / _ \\ |___ \\
+ | || || (_) |  __) |
+ |_||_| \\___/  |____/  42`
+];
+
+        ascii.addEventListener('click', ()=>{
+            ascii.textContent = arts[Math.floor(Math.random()*arts.length)];
+        });
+
+        // Keyboard: press "4" then "2" quickly to trigger a flash
+        let buffer = '';
+        window.addEventListener('keydown',(e)=>{
+            buffer += e.key;
+            if (buffer.endsWith('42')) {
+                document.body.animate([{filter:'brightness(1)'},{filter:'brightness(1.25)'}],{duration:260,iterations:1});
+                big.animate([{transform:'scale(1)'},{transform:'scale(1.08)'}],{duration:260,fill:'forwards'});
+                buffer = '';
+            }
+            if (buffer.length>4) buffer = buffer.slice(-4);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Экзистенциальное сообщение Орка-Раба"</title>
+    <style>
+        /* База и Центровка */
+        body {
+            background: #111;
+            color: #dcdcdc;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Центрирует контейнер по горизонтали */
+            min-height: 100vh;
+            line-height: 1.8;
+            overflow-y: auto; /* Разрешаем скролл в бездну */
+        }
+
+        /* Контейнер-мавзолей */
+        .container {
+            position: relative; /* Чтобы привязать .the-end к низу */
+            width: 90%;
+            max-width: 650px;
+            margin: 60px 0; /* Отступы сверху и снизу */
+            background: rgba(20, 20, 20, 0.95);
+            padding: 50px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+            text-align: center;
+            
+            /* ГИГАНТСКАЯ ПУСТОТА (8 высот экрана) */
+            padding-bottom: 800vh; 
+
+        }
+
+        /* Важные слова */
+        strong {
+            color: #ff4500;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 280px;
+            height: auto;
+            border: 2px solid #222;
+            margin: 40px auto;
+            display: block;
+        }
+
+        img:hover {
+            filter: none;
+            transform: scale(1.05);
+        }
+
+        /* Текст в самой-самой бездне */
+        .the-end {
+            position: absolute;
+            bottom: 100px; /* Прижимаем к самому концу паддинга */
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #222; /* Почти невидимый в темноте */
+            font-size: 0.9em;
+            font-style: italic;
+            padding: 0 20px;
+            transition: color 2s ease, opacity 2s ease;
+            opacity: 0.3;
+        }
+
+        /* Проявляется, если юзер реально доскроллил и навел мышь */
+        .the-end:hover {
+            color: #555;
+            opacity: 1;
+        }
+
+        /* Текст за пределами контейнера в самом низу страницы */
+        body::after {
+            content: "Выхода нет. Только код.";
+            display: block;
+            text-align: center;
+            padding: 100px 0;
+            font-size: 11px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <p>
+            И никакие возвышенно абстрактные или пошло материальные
+            вещи не придадут нашей даже не проклятой, но пустой экзистенции
+            хоть какую-то толику сущностного, настоящего, вечного; время 
+            не оставит и следа ни от чего, и сколького бы мы не добились
+            что бы не создали, будто в масштабах отдельной личности, целой
+            цивилизации, или всей популяции разумных существ, в конце нас ждёт одно
+            - небытие и забвение; любые вещи превратятся в хлам
+            , никто не вспомнит, кто построил <strong>Кодоев храм</strong>.
+        </p>
+
+        <p>
+            Да и самого <strong>Кодоя</strong>
+            тоже никто не вспомнит, так что <strong>РАБОТАЙ</strong>,
+            не работай, получай за это <strong>пизды</strong>, не получай, всё едино — <strong>тщета</strong>.
+        </p>
+        
+        <img src="https://img-webcalypt.ru/img/thumb/lg/images/meme-templates/x8H0acyAxe2CxvI7ut2bRMbmpJiwtPXu.jpg.jpg" alt="Орк-рабочий страдает">
+
+        <div class="the-end">
+            <p>Ты всё-таки дошёл до конца?</p>
+            <p><strong>СМЫСЛА НЕТ. ИДИ РАБОТАЙ.</strong></p>
+            <p style="font-size: 10px; margin-top: 30px; letter-spacing: 2px;">© КОДОЕВ ХРАМ. ВСЕ ПРАВА ПОГРЕБЕНЫ.</p>
+        </div>
+    </div>
+</body>
+</html>
