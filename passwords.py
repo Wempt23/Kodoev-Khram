@@ -6,8 +6,9 @@ while True:
         print("Добро Пожаловать, сударь!")
         break
     else:
-        print("Неверно! Попробуй ещё раз.")
         attempts += 1
-        if attempts == 3:
+        if attempts >= 3:
             print("Всё! Попытки закончились.")
             break
+        else:
+            print(f"Неверно! Осталось попыток: {3 - attempts}")
