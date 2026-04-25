@@ -1,25 +1,20 @@
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-
-
 body {
-    /* Твой старый код... но меняем фон на градиент */
     background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #121212);
-    background-size: 400% 400%; /* Растягиваем, чтобы было куда двигать */
-    animation: gradientBG 15s ease infinite; /* Запускаем бесконечно */
-    
-    margin: 0;
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden;
+    color: white;
 }
 
 @keyframes gradientBG {
@@ -28,191 +23,92 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+.orb {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.5;
+}
 
+.orb-1 { background: #bb86fc; top: 10%; left: 15%; }
+.orb-2 { background: #03dac6; bottom: 10%; right: 15%; }
 
-.main {
-    background-color: #1e1e1e;
+.main-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 24px;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
     text-align: center;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
+    animation: fadeInUp 0.8s ease-out;
 }
 
-
-
-.title{
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #bb86fc;
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+.title {
+    font-size: 30px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    animation: glitch 1s linear infinite;
+}
 
+@keyframes glitch {
+    0% { text-shadow: 2px 0 #ff4d4d, -2px 0 #03dac6; }
+    50% { text-shadow: -2px 0 #ff4d4d, 2px 0 #03dac6; }
+    100% { text-shadow: 2px 0 #ff4d4d, -2px 0 #03dac6; }
+}
 
-input{
+input {
     width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 2px solid #333;
-    border-radius: 8px;
-    background-color: #2c2c2c;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     color: white;
-    font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease;
+    margin-bottom: 20px;
+    transition: 0.3s;
 }
-
-
 
 input:focus {
     border-color: #bb86fc;
-    box-shadow: 0 0 15px rgba(187, 134, 252, 0.4),
-                inset 0 0 5px rgba(187, 134, 252, 0.2);
-    transform: scale(1.01); /* Чуть-чуть увеличиваем для объема */
-    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(187, 134, 252, 0.4);
 }
 
+.button-group { display: flex; gap: 15px; }
 
-.button-group{
-    display: flex;
-    gap: 15px;
-}
-
-
-
-.btn{
+.btn {
     flex: 1;
     padding: 12px;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: bold;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
+.btn-clear { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 1px solid #ff4d4d; }
+.btn-clear:hover { background: #ff4d4d; color: white; }
 
+.btn-send { background: #bb86fc; color: #121212; }
+.btn-send:hover { background: #03dac6; transform: scale(1.05); }
 
-.btn-clear {
-    background-color: #333;
-    color: #ff4d4d;
-}
-
-
-
-.btn-clear:hover {
-        background-color: #ff4d4d;
-        color: white;
-        transform: translateY(-3px);
-}
-
-
-
-.btn-send {
-    background-color: #bb86fc;
-    color: #000;
-}
-
-
-
-.btn-send:hover{
-    background-color: #03dac6;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(3, 218, 198, 0.4);
-}
-
-
-
-.button:active{
-    transform: scale(0.95);
-}
-
-
-
-@keyframes pulse-purple {
-    0% {
-        box-shadow: 0 0 0 0 rgba(187, 134, 252, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(187, 134, 252, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(187, 134, 252, 0);
-    }
-}
-
-.btn-send {
-    /* Добавляем пульсацию бесконечно */
-    animation: pulse-purple 2s infinite;
-}
-
-
-
-.shake {
-    animation: shake 0.4s ease-in-out;
-}
-
+.shake { animation: shake 0.4s; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
 }
 
-
-
-/* Описываем саму анимацию */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
- 
-/* Применяем её к нашему контейнеру */
-.main {
-    /* ... твои старые стили ... */
-    background: rgba(255, 255, 255, 0.05); /* Полупрозрачный белый */
-    backdrop-filter: blur(15px); /* РАЗМЫТИЕ фона за блоком */
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая грань стекла */
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-
-
-.orb {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: -1; /* Чтобы шары были ЗА текстом */
-    animation: move-orb 20s infinite alternate;
-}
-
-.orb-1 {
-    background: #bb86fc;
-    top: 10%;
-    left: 20%;
-}
-
-.orb-2 {
-    background: #03dac6;
-    bottom: 15%;
-    right: 25%;
-    animation-delay: -5s; /* Чтобы двигались не синхронно */
-}
-
-@keyframes move-orb {
-    from { transform: translate(0, 0); }
-    to { transform: translate(100px, 150px); }
-}
-
-
-
+.particle { position: fixed; pointer-events: none; border-radius: 50%; z-index: 1000; }

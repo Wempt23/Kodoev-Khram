@@ -1,60 +1,51 @@
-// Ждём, пока вся страница загрузится, чтобы скрипт ничего не потерял
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Выцепляем элементы по их ID
-    const inputField = document.getElementById('myInput');
+    const input = document.getElementById('myInput');
     const clearBtn = document.getElementById('clearBtn');
     const sendBtn = document.getElementById('sendBtn');
+    const orb1 = document.querySelector('.orb-1');
+    const orb2 = document.querySelector('.orb-2');
 
-    // ФУНКЦИЯ ОТПРАВКИ
-    const handleSend = () => {
-        const message = inputField.value.trim(); // .trim() убирает лишние пробелы по бокам
+    // Движение шаров за мышкой
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        if (orb1) orb1.style.transform = translate(${x * 40}px, ${y * 40}px);
+        if (orb2) orb2.style.transform = translate(${x * -60}px, ${y * -60}px);
+    });
 
-        if (message === "") {
-            // Если в инпуте пусто или одни пробелы
-            inputField.style.borderColor = "#ff4d4d"; // Подсветим красным, что юзер тупит
-            setTimeout(() => inputField.style.borderColor = "#333", 1000); // Через секунду вернем как было
-            console.warn("Пусто, шеф! Писать-то кто будет?");
-        } else {
-            // Имитируем отправку
-            console.log("Сообщение улетело:", message);
-            alert("🚀 Отправлено: " + message);
-            
-            // Очищаем поле после успешной "отправки"
-            inputField.value = "";
+    // Функция искр
+    function spawnParticles(x, y, color) {
+        for (let i = 0; i < 10; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            p.style.width = p.style.height = Math.random() * 6 + 2 + 'px';
+            p.style.background = color;
+            document.body.appendChild(p);
+
+            p.animate([
+                { transform: 'translate(0,0)', opacity: 1 },
+                { transform: translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px), opacity: 0 }
+            ], { duration: 600 }).onfinish = () => p.remove();
         }
-    };
-
-
-
-    clearBtn.onclick = function() {
-    if (inputField.value === "") {
-        // Если поле пустое, добавляем класс тряски
-        inputField.classList.add('shake');
-        // Убираем его через 400мс, чтобы можно было тряхнуть еще раз
-        setTimeout(() => inputField.classList.remove('shake'), 400);
-    } else {
-        inputField.value = "";
     }
-};
 
-    // Слушаем клик по кнопке Send
-    sendBtn.addEventListener('click', handleSend);
-
-    // Слушаем клик по кнопке Clear
-    clearBtn.addEventListener('click', () => {
-        if (inputField.value !== "") {
-            inputField.value = "";
-            console.log("Зачистка произведена успешно.");
-        }
+    // Кнопка Clear
+    clearBtn.addEventListener('click', (e) => {
+        spawnParticles(e.clientX, e.clientY, '#ff4d4d');
+        input.value = "";
     });
 
-    // Добавляем поддержку Enter, чтобы не тыкать мышкой каждый раз
-    inputField.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            handleSend();
+    // Кнопка Send
+    sendBtn.addEventListener('click', (e) => {
+        if (input.value.trim() === "") {
+            input.classList.add('shake');
+            setTimeout(() => input.classList.remove('shake'), 400);
+        } else {
+            spawnParticles(e.clientX, e.clientY, '#03dac6');
+            console.log("Отправлено:", input.value);
+            input.value = "";
         }
     });
-
-    console.log("Система запущена. Кодер — гений!");
 });
