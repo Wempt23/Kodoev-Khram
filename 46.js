@@ -25,6 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+
+
+    clearBtn.onclick = function() {
+    if (inputField.value === "") {
+        // Если поле пустое, добавляем класс тряски
+        inputField.classList.add('shake');
+        // Убираем его через 400мс, чтобы можно было тряхнуть еще раз
+        setTimeout(() => inputField.classList.remove('shake'), 400);
+    } else {
+        inputField.value = "";
+    }
+};
+
     // Слушаем клик по кнопке Send
     sendBtn.addEventListener('click', handleSend);
 
